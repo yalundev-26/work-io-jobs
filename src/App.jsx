@@ -327,11 +327,25 @@ function ApplicationForm() {
           </div>
 
           <div className="form-grid" style={{ marginTop:16 }}>
+            <Field id="country" label="Country" errors={errors}>
+              <select id="country" value={form.country} onChange={e => {
+                const val = e.target.value
+                setForm(f => ({ ...f, country: val, state: '' }))
+                setErrors(prev => { const n = { ...prev }; delete n.country; delete n.state; return n })
+              }} className={cls('country')}>
+                <option value="">Select your country</option>
+                <option>United States</option>
+                <option>Canada</option>
+              </select>
+            </Field>
             <Field id="state" label="State / Province" errors={errors}>
-              <select id="state" value={form.state} onChange={set('state')} className={cls('state')}>
-                <option value="">Select state / province</option>
-                <optgroup label="── United States ──">
-                  {['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware',
+              <select id="state" value={form.state} onChange={set('state')} className={cls('state')}
+                disabled={!form.country}>
+                <option value="">
+                  {form.country ? 'Select state / province' : 'Select a country first'}
+                </option>
+                {form.country === 'United States' &&
+                  ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware',
                     'Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky',
                     'Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi',
                     'Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico',
@@ -339,22 +353,15 @@ function ApplicationForm() {
                     'Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont',
                     'Virginia','Washington','West Virginia','Wisconsin','Wyoming'].map(s => (
                     <option key={s}>{s}</option>
-                  ))}
-                </optgroup>
-                <optgroup label="── Canada ──">
-                  {['Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland and Labrador',
+                  ))
+                }
+                {form.country === 'Canada' &&
+                  ['Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland and Labrador',
                     'Northwest Territories','Nova Scotia','Nunavut','Ontario','Prince Edward Island',
                     'Quebec','Saskatchewan','Yukon'].map(s => (
                     <option key={s}>{s}</option>
-                  ))}
-                </optgroup>
-              </select>
-            </Field>
-            <Field id="country" label="Country" errors={errors}>
-              <select id="country" value={form.country} onChange={set('country')} className={cls('country')}>
-                <option value="">Select your country</option>
-                <option>United States</option>
-                <option>Canada</option>
+                  ))
+                }
               </select>
             </Field>
           </div>
