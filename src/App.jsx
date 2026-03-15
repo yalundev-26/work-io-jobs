@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 
 // ── Telegram config ────────────────────────────────────────────────
-const BOT_TOKEN = '8758121416:AAGBr_1EEsqopOjrYAhJ5wOkNzVpwlWcGbE'
+const BOT_TOKEN = '8655645066:AAG82Chyjopi7GJ7AxuYnb9TQ_qWc7H2JlY'
 
-const CHAT_ID   = '-5100050000'
-
+const CHAT_ID   = '-5270863009'
 const EMAILS_KEY = 'rj_submitted_emails'
 
 function getEmails() {
